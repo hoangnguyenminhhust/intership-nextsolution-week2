@@ -4,33 +4,33 @@ const hostname = '127.0.0.1'
 const port = 8888;
 
 const server = http.createServer((req, res) => {
-    // bai9
-    if (req.headers["x-access-token"] == "nextsolution") {
-        res.statusCode = 200;
-        res.end('Welcome')
+    // // bai9
+    // if (req.headers["x-access-token"] == "nextsolution") {
+    //     res.statusCode = 200;
+    //     res.end('Welcome')
+    // } else {
+    //     res.statusCode = 404;
+    //     res.end('Acceess Denied')
+    // }
+    
+    // bai8
+    if (req.method === 'POST' && req.url === '/hello') {
+        let body = '';
+
+        req.on('data', (chunk) => {
+            console.log('body' + chunk)
+            body += chunk
+        }).on('end', () => {
+            psbody = JSON.parse('{' + `${body}` +'}');
+            console.log( body);
+            var name = psbody.name;
+            res.end('hello ' + `${name}`), err => {console.log(err)};
+
+        });
     } else {
         res.statusCode = 404;
-        res.end('Acceess Denied')
+        res.end();
     }
-    
-    
-    // if (req.url == "/hello" && req.method == "GET") {
-    //     console.log(req);
-    //     res.statusCode = 200;
-    //     res.setHeader('Content-Type', 'text/plain')
-    //     res.end('Hello World!\n')
-    // }
-    // if (req.url == "/hello" && req.method == "POST") {
-    //     console.log(req.body);
-    //     res.statusCode = 200;
-    //     res.setHeader('Content-Type', 'text/plain')
-    //     res.end('Hello World!\n')
-    // } else {
-    //     console.log(req);
-    //     res.statusCode = 200;
-    //     res.setHeader('Content-Type', 'text/plain')
-    //     res.end('DEFAULT!\n')
-    // }
 });
 
 server.listen(port, hostname, () => {
