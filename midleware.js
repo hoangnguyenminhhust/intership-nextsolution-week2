@@ -1,4 +1,6 @@
 let midleware = () => {
+    let req;
+    let res;
     let mid = [];
     let use = fn => mid.push(fn);
     let runmidle = index => {
@@ -8,7 +10,8 @@ let midleware = () => {
         }
     }
     let get = () => {
-        console.log('get')
+        runmidle(0)
+        // console.log('get')
     }
     return {
         get,
@@ -26,7 +29,7 @@ app.use((next) => {
     
 })
 
-app.use((req, res, next) => {
+app.use(( next) => {
     console.log('midleware 2');
     next();
 })
